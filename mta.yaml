@@ -1,0 +1,81 @@
+_schema-version: "3.2"
+ID: Demo_NorthWind_Crud
+version: 0.0.1
+modules:
+- name: demo-northwind-crud-approuter
+  type: approuter.nodejs
+  path: demo-northwind-crud-approuter
+  requires:
+  - name: Demo_NorthWind_Crud_html_repo_runtime
+  - name: uaa_Demo_NorthWind_Crud
+  - name: Demo_NorthWind_Crud-dest-srv
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: Demo_NorthWind_Crud_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: Demo_NorthWind_Crud_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - demonwcrudui.zip
+      name: demonwcrudui
+      target-path: resources/
+- name: demonwcrudui
+  type: html5
+  path: demo_nw_crud_ui
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: Demo_NorthWind_Crud_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: uaa_Demo_NorthWind_Crud
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: Demo_NorthWind_Crud-xsuaa-service
+    service-plan: application
+- name: Demo_NorthWind_Crud_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: Demo_NorthWind_Crud-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: Demo_NorthWind_Crud-dest-srv
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo

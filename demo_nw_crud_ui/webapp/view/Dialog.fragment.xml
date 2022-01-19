@@ -1,0 +1,74 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc = "sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>Create}">
+      <content>
+        <VBox>
+            <f:Form  editable="true">     
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        labelSpanXL="4"
+                        labelSpanL="4"
+                        labelSpanM="4"
+                        labelSpanS="12"
+                        adjustLabelSpan="true"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                        emptySpanS="0"
+                        columnsXL="2"
+                        columnsL="1"
+                        columnsM="1"
+                        singleContainerFullSize="false" />
+                </f:layout>
+                <f:formContainers>
+                    <f:FormContainer>
+                        <f:formElements>
+                            <f:FormElement label="Product#">
+                                <f:fields>
+                                    <Input id="idProduct" type="Number"/>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Product Name">
+                                <f:fields>
+                                    <!-- <HBox> -->
+                                    <Input id ="idProductName">  
+                                    <layoutData>
+										<l:GridData span="XL1 L2 M2 S4" />
+									</layoutData>     
+                                </Input>
+                                    <Input id = "idProdDes"/>   
+                                <!-- </HBox>                                                       -->
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Price">
+                                <f:fields>
+                                    <Input id = "idPrice" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Rating">
+                                <f:fields>
+                                    <RatingIndicator id="idRating" maxValue="5" class="sapUiSmallMarginBottom"/>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="ReleaseDate">
+                                <f:fields>
+                                	<DatePicker id="idRDate" placeholder="Enter Date" change="handleChange" class="sapUiSmallMarginBottom"/>
+                                </f:fields>
+                            </f:FormElement> 
+                            <f:FormElement label="Expiry Date">
+                                <f:fields>
+                                	<DatePicker id="idEDate" placeholder="Enter Date" change="handleChange" class="sapUiSmallMarginBottom"/>
+                                </f:fields>
+                            </f:FormElement> 
+                        </f:formElements>
+                    </f:FormContainer>
+                </f:formContainers>
+            </f:Form>
+        </VBox>
+    </content>
+    <buttons> 
+      <Button type ="Accept" press="onDLSave" text ="Save"></Button>
+      <Button type = "Reject" press="onDLCancel" text = "Cancel" ></Button> 
+     </buttons>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,76 @@
+<mvc:View
+    controllerName="demonwcrudui.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>  
+<Page>
+<customHeader>
+    <Bar>
+      <contentMiddle>
+          <Title text = "{i18n>Products}"></Title>
+      </contentMiddle>
+    </Bar> 
+ </customHeader>
+ <content>
+ <Table id = "idTable" mode="SingleSelectMaster" items = "{path :'/Products'}" >
+    <columns>
+       <Column hAlign="Center" minScreenWidth="Phone" popinDisplay="Inline">
+           <Text text = "{i18n>id}"/> 
+       </Column>
+       <Column hAlign="Center" minScreenWidth="Phone" popinDisplay="Inline" >
+           <Text text = "{i18n>Cat}"/>
+       </Column>
+       <Column hAlign="Left" minScreenWidth="Phone" popinDisplay="Inline" >
+           <Text text = "{i18n>Rating}"/>
+       </Column>
+        <Column hAlign="Center" minScreenWidth="Phone" popinDisplay="Inline" >
+           <Text text = "{i18n>Price}"/>
+       </Column>
+        <Column hAlign="Center" minScreenWidth="Phone" popinDisplay="Inline" >
+           <Text text = "{i18n>ReleaseDate}"/>
+       </Column>
+        <Column hAlign="Center" minScreenWidth="Phone" popinDisplay="Inline" >
+           <Text text = "{i18n>ExperiedDate}"/>
+       </Column>
+    </columns> 
+    <items>
+      <ColumnListItem>
+        <cells>
+          <ObjectIdentifier title="{ID}"></ObjectIdentifier>      
+          <VBox >
+            <Text text = "{Name} - " ></Text>
+            <Text text = "{Description}"></Text>
+        </VBox>  
+        <RatingIndicator  maxValue="5" class="sapUiSmallMarginBottom" value="{Rating}" editable = "false" tooltip="Rating Tooltip" />
+       <ObjectNumber
+		number="{ path: 'Price' }"
+		unit="USD"/>
+        	<Text text="{
+				path: 'ReleaseDate',
+				type: 'sap.ui.model.type.Date',
+				formatOptions: {
+					style: 'medium'
+				}
+			}" />
+			<Text text= "{	path: 'DiscontinuedDate',
+				type: 'sap.ui.model.type.Date',
+				formatOptions: {
+					style: 'medium'
+				}
+			}" /> 
+        </cells>
+      </ColumnListItem>
+    </items>
+ </Table>
+ </content>
+ <footer>
+ <OverflowToolbar >
+   <ToolbarSpacer/>
+   <Button type="Accept" press="onCreate"  text="{i18n>Create}"/>
+    <Button type="Emphasized" press="onUpdate"  text="{i18n>Update}"/>
+   <Button type ="Reject" press="onDelete" text="{i18n>Delete}"/>
+ </OverflowToolbar>
+ </footer>
+</Page>
+</mvc:View>
